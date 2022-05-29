@@ -1,8 +1,8 @@
-﻿<Application x:Class="Lab3OOP.App"
+﻿<Application x:Class="Lab3oopClient.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Lab3OOP"
-             StartupUri="ServerWindow.xaml">
+             xmlns:local="clr-namespace:Lab3oopClient"
+             StartupUri="ClientWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
