@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3OOP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Canvas>
+        Title="MainWindow" Height="450" Width="761">
+    <Canvas x:Name="Canvas" HorizontalAlignment="Center" Width="761">
         <Image Height="327" Canvas.Left="183" Canvas.Top="83" Width="344" Source="\images\Корова1.png"/>
-        <Ellipse x:Name="CowMood" Height="63" Canvas.Left="382" Stroke="Black" Canvas.Top="50" Width="36"/>
-        <Rectangle x:Name="GrainContainer" Height="98" Stroke="Black" Width="181" Canvas.Left="563" Canvas.Top="292"/>
-        <Rectangle x:Name="WaterContainer" Height="115" Canvas.Left="88" Stroke="Black" Canvas.Top="275" Width="86"/>
+        <Ellipse x:Name="CowMood" Height="63" Canvas.Left="391" Stroke="Black" Canvas.Top="48" Width="36" Fill="Green"/>
+        <Border x:Name="GrainLevel3" BorderThickness="1" BorderBrush="Black" Height="40" Canvas.Left="547" Canvas.Top="270" Width="181" Background="Yellow" Cursor=""/>
+        <Border x:Name="GrainLevel2" BorderThickness="1" BorderBrush="Black" Height="40" Canvas.Left="547" Canvas.Top="310" Width="181" Background="Yellow"/>
+        <Border x:Name="GrainLevel1" BorderThickness="1" BorderBrush="Black" Height="40" Canvas.Left="547" Canvas.Top="350" Width="181" Background="Yellow"/>
+        <Border x:Name="WaterLevel3" BorderThickness="1" BorderBrush="Black" Height="33" Canvas.Left="87" Canvas.Top="294" Width="86" Background="Blue"/>
+        <Border x:Name="WaterLevel2" BorderThickness="1" BorderBrush="Black" Height="33" Canvas.Left="87" Canvas.Top="327" Width="86" Background="Blue"/>
+        <Border x:Name="WaterLevel1" BorderThickness="1" BorderBrush="Black" Height="32" Canvas.Left="87" Canvas.Top="358" Width="86" Background="Blue"/>
 
     </Canvas>
 </Window>

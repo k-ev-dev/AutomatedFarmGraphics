@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3oopClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="188" Width="200">
+    <Canvas x:Name="Canvas" HorizontalAlignment="Center" Width="200">
+        <Button Content="Вода" Height="33" Canvas.Left="28" Canvas.Top="28" Width="62" Click="Button_Click"/>
+        <Button Content="Зерно" Height="33" Canvas.Left="110" Canvas.Top="28" Width="62"/>
+        <Button Content="Автоматический режим" Height="32" Canvas.Left="28" Canvas.Top="76" Width="144"/>
+        <Button Content="Ручной режим" Height="32" Canvas.Left="28" Canvas.Top="121" Width="144" Background="GreenYellow"/>
+    </Canvas>
 </Window>
