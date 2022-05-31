@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab3OOP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,21 +33,26 @@ namespace Lab3oopServer {
                 ChangeMood(0);
                 return;
             }
-            feeder.ChangeLevel(0);
+            feeder.ChangeLevel(false);
             ChangeMood(1);
         }
 
         public void Eating() {
-            var feeder = Feeders
+            var feederGrain = Feeders
                 .Where(f => f.Kind == Feeder.FeederKind.Grain)
                 .Where(f => f.Fullness != Feeder.FeederFullness.Empty)
                 .FirstOrDefault();
-            if (feeder == null) {
+            if (feederGrain == null) {
                 ChangeMood(0);
                 return;
             }
-            feeder.ChangeLevel(0);
-            ChangeMood(1);
+            var feederWater = Feeders
+               .Where(f => f.Kind == Feeder.FeederKind.Water)
+               .FirstOrDefault();
+            feederGrain.ChangeLevel(false);
+            if (feederWater.Fullness != Feeder.FeederFullness.Empty) {
+                ChangeMood(1);
+            }
         }
 
         public void ChangeMood(int direction) {
@@ -59,13 +65,26 @@ namespace Lab3oopServer {
             Mood++;
         }
 
-        void threadCowProcess(Window window) {
+        /*public void threadCowProcess(MainWindow window) {
             while (true) {
-                Thread.Sleep(5000);
+                Thread.Sleep(3000);
+                Drinking();
                 window.Dispatcher.BeginInvoke(
-                    new Action(Drinking)
-                    );
+                    new Action(window.SetFeederFullness)
+                );
+                window.Dispatcher.BeginInvoke(
+                new Action(window.SetCowMood)
+                );
+                Thread.Sleep(3000);
+                Drinking();
+                Eating();
+                window.Dispatcher.BeginInvoke(
+                   new Action(window.SetFeederFullness)
+                );
+                window.Dispatcher.BeginInvoke(
+                new Action(window.SetCowMood)
+                );
             }
-        }
+        }*/
     }
 }

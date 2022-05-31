@@ -25,8 +25,8 @@ namespace Lab3oopServer {
             Grain = 1
         }
 
-        public void ChangeLevel(int direction) { 
-            if (direction == 0) {
+        public void ChangeLevel(bool direction) { 
+            if (!direction) {
                 if (Fullness == FeederFullness.Empty) { return; }
                 Fullness--;
                 return;

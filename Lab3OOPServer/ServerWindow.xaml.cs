@@ -24,7 +24,7 @@ namespace Lab3OOP {
             InitializeComponent();
         }
 
-        void SetCowMood() {
+        public void SetCowMood() {
             if (MyCow.Mood == Lab3oopServer.Cow.CowMood.Happy) {
                 CowMood.Fill = Brushes.Green;
                 return;
@@ -39,7 +39,7 @@ namespace Lab3OOP {
             }
         }
 
-        void SetFeederFullness() {
+        public void SetFeederFullness() {
             Brush colorEmpty = Brushes.White;
             Border[] borders = new Border[] { WaterLevel1, WaterLevel2, WaterLevel3 };
             Brush colorMain = Brushes.Blue;
@@ -79,7 +79,7 @@ namespace Lab3OOP {
             }
         }
 
-        void threadProcess() {
+        void CowLife() {
             while (true) {
                 Thread.Sleep(3000);
                 MyCow.Drinking();
@@ -101,23 +101,40 @@ namespace Lab3OOP {
             }
         }
 
-        Thread TR;
+        void FarmerLife() {
+            while (true) {
+                Thread.Sleep(5000);
+                BestFarmer.CowCare();
+                Dispatcher.BeginInvoke(
+                   new Action(SetFeederFullness)
+                );
+            }
+        }
+
+        Thread CowLifeTR;
+        Thread FarmerLifeTR;
         public Cow MyCow;
+        public Farmer BestFarmer;
         public Feeder Water;
         public Feeder Grain;
         public List<Feeder> Feeders;
 
         override protected void OnActivated(EventArgs e) {
-
             Grain = new Feeder(1);
             Water = new Feeder(0);
             Feeders = new List<Feeder>();
             Feeders.Add(Water);
             Feeders.Add(Grain);
             MyCow = new Cow(Feeders);
-            if (TR == null) {
-                TR = new Thread(threadProcess);
-                TR.Start();
+            BestFarmer = new Farmer(MyCow);
+            if (CowLifeTR == null) {
+                CowLifeTR = new Thread(CowLife);
+                CowLifeTR.Start();
+            }
+
+            if (FarmerLifeTR == null) {
+                FarmerLifeTR = new Thread(FarmerLife);
+                FarmerLifeTR.Start();
             }
         }
 
