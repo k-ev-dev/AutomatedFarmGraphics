@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="761">
     <Canvas x:Name="Canvas" HorizontalAlignment="Center" Width="761">
-        <Image Height="327" Canvas.Left="183" Canvas.Top="83" Width="344" Source="\images\Корова1.png"/>
+        <Image x:Name="Cow" Height="327" Canvas.Left="183" Canvas.Top="83" Width="344" Source="D:\11_Проекты c#\Lab3OOP\Lab3OOPServer\images\Корова1.png"/>
         <Ellipse x:Name="CowMood" Height="63" Canvas.Left="391" Stroke="Black" Canvas.Top="48" Width="36" Fill="Green"/>
         <Border x:Name="GrainLevel3" BorderThickness="1" BorderBrush="Black" Height="40" Canvas.Left="547" Canvas.Top="270" Width="181" Background="Yellow" Cursor=""/>
         <Border x:Name="GrainLevel2" BorderThickness="1" BorderBrush="Black" Height="40" Canvas.Left="547" Canvas.Top="310" Width="181" Background="Yellow"/>

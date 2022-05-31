@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lab3oopServer {
     public class Cow {
@@ -55,6 +57,15 @@ namespace Lab3oopServer {
             }
             if (Mood == CowMood.Happy) { return; }
             Mood++;
+        }
+
+        void threadCowProcess(Window window) {
+            while (true) {
+                Thread.Sleep(5000);
+                window.Dispatcher.BeginInvoke(
+                    new Action(Drinking)
+                    );
+            }
         }
     }
 }
