@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+﻿using Lab3oopServer.BaseHandler;
+using System;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
-using Lab3oopServer.BaseHandler;
 
 namespace Lab3OOP {
     /// <summary>

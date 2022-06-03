@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab3oopServer {
+﻿namespace Lab3oopServer {
     public class Feeder {
         public Feeder(int kind) {
             Fullness = FeederFullness.Level3;
