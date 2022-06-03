@@ -23,11 +23,11 @@ namespace Lab3oopClient {
         }
         class JsonResponce {
             public string jsonrpc { get; set; }
-            public int result { get; set; }
+            public string result { get; set; }
             public int id { get; set; }
         }
 
-        class Client {
+        public class Client {
             // отправитель запроса
             HttpClient requestSender;
             protected string url;
@@ -63,11 +63,10 @@ namespace Lab3oopClient {
                 return text;
             }
             // создание содержимого запроса: настройка метода и параметров внутри запроса, сериализация в соотв. с JsonMethod
-            protected string createMethodObject(string method, int[] args) {
+            protected string createMethodObject(string method) {
                 var jsonmethod = new JsonMethod {
                     jsonrpc = "example-version",
                     method = method,
-                    _params = args,
                     id = 0
                 };
                 string json = JsonSerializer.Serialize<JsonMethod>(jsonmethod);
@@ -77,26 +76,44 @@ namespace Lab3oopClient {
             }
 
             // десериализация результата ответ
-            protected int parseResult(string json) {
+            protected string parseResult(string json) {
                 JsonResponce? jsonresponse = JsonSerializer.Deserialize<JsonResponce>(json);
                 return jsonresponse.result;
             }
 
         }
 
-        class JsonRPCClient : Client {
+        public class JsonRPCClient : Client {
             public JsonRPCClient(string url) : base(url) { }
 
             // созадние метода запроса, отправка запроса, получение ответа, парсинг ответа
             // возвращает результат
-            public int sum(int i, int j) {
+            /*public int sum(int i, int j) {
                 int[] args = { i, j };
                 string json = createMethodObject("sum", args);
                 json = callRemote(json);
                 return parseResult(json);
+            }*/
+
+            public void AddWater() {
+                string json = createMethodObject("addWater");
+                callRemote(json);
             }
 
-            // !!! СЮДА ДОБАВЛЯЕМ МЕТОДЫ ЗАПРОСА КЛИЕНТА
+            public void AddGrain() {
+                string json = createMethodObject("addGrain");
+                callRemote(json);
+            }
+
+            public void AutoOn() {
+                string json = createMethodObject("autoOn");
+                callRemote(json);
+            }
+
+            public void AutoOff() {
+                string json = createMethodObject("autoOff");
+                callRemote(json);
+            }
         }
     }
 }

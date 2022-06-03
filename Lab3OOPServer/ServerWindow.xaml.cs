@@ -1,7 +1,9 @@
 ﻿using Lab3oopServer;
+using Lab3oopServer.BaseHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Lab3OOP.App;
 
 namespace Lab3OOP {
     /// <summary>
@@ -102,17 +105,51 @@ namespace Lab3OOP {
         }
 
         void FarmerLife() {
-            while (true) {
+            while (BestFarmer.Automatic) {
                 Thread.Sleep(5000);
                 BestFarmer.CowCare();
                 Dispatcher.BeginInvoke(
                    new Action(SetFeederFullness)
                 );
             }
+
+            //FarmerLifeTR.Join();
+            Dispatcher.BeginInvoke(
+                        new Action(FarmerLifeTR.Join)
+            );
+            FarmerLifeTR = null;
+        }
+
+        void ServerRun() {
+            server.listener.Start();
+            while (true) {
+                HttpListenerContext context = server.listener.GetContext();
+
+                if (server.handler.processRequest(context)) {
+
+                    Dispatcher.BeginInvoke(
+                        new Action(SetFeederFullness)
+                    );
+
+                    if (FarmerLifeTR == null && BestFarmer.Automatic) {
+                        FarmerLifeTR = new Thread(FarmerLife);
+                        FarmerLifeTR.Start();
+                    }
+
+                    Console.WriteLine("RESPONSE IS SENDED!");
+                }
+                else {
+                    // консоль
+                    Console.WriteLine("ERROR!!!");
+                }
+            }
         }
 
         Thread CowLifeTR;
         Thread FarmerLifeTR;
+        Thread ServerLifeTR;
+        Server server;
+        //MethodHandler handler;
         public Cow MyCow;
         public Farmer BestFarmer;
         public Feeder Water;
@@ -132,11 +169,17 @@ namespace Lab3OOP {
                 CowLifeTR.Start();
             }
 
-            if (FarmerLifeTR == null) {
-                FarmerLifeTR = new Thread(FarmerLife);
-                FarmerLifeTR.Start();
+            MethodHandler handler = new MethodHandler(BestFarmer);
+            server = new("http://localhost:8888/connection/", handler);
+            
+            if (ServerLifeTR == null) {
+                ServerLifeTR = new Thread(ServerRun);
+                ServerLifeTR.Start();
             }
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            Environment.Exit(0);
+        }
     }
 }

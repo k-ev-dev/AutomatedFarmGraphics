@@ -17,12 +17,12 @@ namespace Lab3oopServer.BaseHandler {
 
     class JsonResponce {
         public string jsonrpc { get; set; }
-        public int result { get; set; }
+        public string result { get; set; }
         public int id { get; set; }
     }
 
     // начальная обработка запроса/формирование ответа
-    class BaseHandler {
+    public class BaseHandler {
         public virtual bool processRequest(HttpListenerContext context) {
 
             HttpListenerResponse response = context.Response;
@@ -99,34 +99,65 @@ namespace Lab3oopServer.BaseHandler {
             // формирование ответа в соответсвии с параметрами запроса: методом и параметрами
             JsonResponce jsonresponce = new JsonResponce {
                 jsonrpc = "example-version",
-                result = this.call(jsonmethod.method, jsonmethod._params),
+                result = this.call(jsonmethod.method),
                 id = 0
             };
             json = JsonSerializer.Serialize<JsonResponce>(jsonresponce);
             return json;
         }
         // метод-недоделанный
-        internal virtual int call(string name, int[] args) {
-            return 0;
+        internal virtual string call(string name) {
+            return "error";
         }
     }
 
     class MethodHandler : JsonRpcHandler {
         // возможная реализация метода формирования ответа
-        internal override int call(string name, int[] args) {
-            if (name == "sum")
-                return sum(args);
-            return 0;
+        public Farmer BestFarmer;
+        public MethodHandler(Farmer farmer) {
+            BestFarmer = farmer;
         }
 
-        int sum(int[] args) {
+        internal override string call(string name) {
+            if (name == "addWater")
+                return AddWater();
+            if (name == "addGrain")
+                return AddGrain();
+            if (name == "autoOn")
+                return AutoOn();
+            if (name == "autoOff")
+                return AutoOff();
+            return "error";
+        }
+
+        /*int sum(int[] args) {
             int s = 0;
             for (int i = 0; i < args.Length; i++) {
                 s += args[i];
             }
             return s;
-        }
+        }*/
 
         // !!! СЮДА ДОБАВЛЯЕМ МЕТОДЫ ОБРАБОТКИ ЗАПРОСА ОТ КЛИЕНТА
+
+        public string AddWater() {
+            BestFarmer.AddWater();
+            return "addWater";
+        }
+
+        public string AddGrain() {
+            BestFarmer.AddGrain();
+            return "addGrain";
+        }
+
+        public string AutoOn() {
+            BestFarmer.FermerAutoOn();
+            return "autoOn";
+        }
+
+        public string AutoOff() {
+            BestFarmer.FermerAutoOff();
+            return "autoOff";
+        }
     }
 }

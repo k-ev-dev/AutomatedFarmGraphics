@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 namespace Lab3oopServer {
     public class Farmer {
         public Farmer(Cow cow) {
-            Automatic = true;
+            Automatic = false;
             Cow = cow;
         }
 
         public bool Automatic { get; set; }
         public Cow Cow { get; set; }
 
-        public void AddWater() {
+        public void AddWaterFull() {
             var feeders = Cow.Feeders
                 .Where(f => f.Kind == Feeder.FeederKind.Water)
+                .Where(f => f.Fullness != Feeder.FeederFullness.Level3)
                 .Select(f => f);
             foreach(var item in feeders) {
                 do {
@@ -25,9 +26,10 @@ namespace Lab3oopServer {
             }
         }
 
-        public void AddGrain() {
+        public void AddGrainFull() {
             var feeders = Cow.Feeders
                 .Where(f => f.Kind == Feeder.FeederKind.Grain)
+                .Where(f => f.Fullness != Feeder.FeederFullness.Level3)
                 .Select(f => f);
             foreach (var item in feeders) {
                 do {
@@ -36,10 +38,38 @@ namespace Lab3oopServer {
             }
         }
 
+        public void AddWater() {
+            var feeder = Cow.Feeders
+                .Where(f => f.Kind == Feeder.FeederKind.Water)
+                .Where(f => f.Fullness != Feeder.FeederFullness.Level3)
+                .FirstOrDefault();
+            if (feeder != null) {
+                feeder.ChangeLevel(true);
+            }
+        }
+
+        public void AddGrain() {
+            var feeder = Cow.Feeders
+                .Where(f => f.Kind == Feeder.FeederKind.Grain)
+                .Where(f => f.Fullness != Feeder.FeederFullness.Level3)
+                .FirstOrDefault();
+            if (feeder != null) {
+                feeder.ChangeLevel(true);
+            }
+        }
+
+        public void FermerAutoOn() {
+            Automatic = true;
+        }
+
+        public void FermerAutoOff() {
+            Automatic = false;
+        }
+
         public void CowCare() {
             if (!CheckCowMood()) {
-                AddWater();
-                AddGrain();
+                AddWaterFull();
+                AddGrainFull();
             }
         }
 

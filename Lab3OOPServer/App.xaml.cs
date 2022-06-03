@@ -13,10 +13,10 @@ namespace Lab3OOP {
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
-        class Server {
-            HttpListener listener;
+        public class Server {
+            public HttpListener listener;
             // класс, который определяет как будет изменяться HttpListenerContext
-            BaseHandler handler;
+            public BaseHandler handler;
             bool isRunning = false;
 
             public Server(string url, BaseHandler h) {

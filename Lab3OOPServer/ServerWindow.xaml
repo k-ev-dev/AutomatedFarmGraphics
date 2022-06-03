@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3OOP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="761">
+        Title="MainWindow" Height="450" Width="761" Closing="Window_Closing">
     <Canvas x:Name="Canvas" HorizontalAlignment="Center" Width="761">
         <Image x:Name="Cow" Height="327" Canvas.Left="183" Canvas.Top="83" Width="344" Source="D:\11_Проекты c#\Lab3OOP\Lab3OOPServer\images\Корова1.png"/>
         <Ellipse x:Name="CowMood" Height="63" Canvas.Left="391" Stroke="Black" Canvas.Top="48" Width="36" Fill="Green"/>
